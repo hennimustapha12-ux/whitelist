@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تقديم وايت ليست - Whitelist Application</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #161b22;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 500px;
+        }
+        h2 {
+            text-align: center;
+            color: #58a6ff;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #30363d;
+            background-color: #0d1117;
+            color: #c9d1d9;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #238636;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #2ea043;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>تقديم طلب الوايت ليست</h2>
+        <form id="wlForm">
+            <div class="form-group">
+                <label for="discord">اسمك في ديسكورد (Discord Tag):</label>
+                <input type="text" id="discord" required placeholder="مثال: username">
+            </div>
+
+            <div class="form-group">
+                <label for="age">عمرك الحقيقي:</label>
+                <input type="number" id="age" required placeholder="مثال: 18">
+            </div>
+
+            <div class="form-group">
+                <label for="experience">خبرتك في الرول بلاي (Roleplay):</label>
+                <textarea id="experience" required placeholder="اكتب نبذة عن خبرتك..."></textarea>
+            </div>
+
+            <button type="submit">إرسال الطلب</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('wlForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const discord = document.getElementById('discord').value;
+            const age = document.getElementById('age').value;
+            const experience = document.getElementById('experience').value;
+
+            // رابط الويب هوك الخاص بك في ديسكورد
+            const webhookURL = 'https://discord.com/api/webhooks/1562123414930460712/Rjd8hH7PUL8fyIPK-LoScJXj_EfSKax21w4JrGfLtqaO_sCpFNvm2jgMm-KNEgV7ySsj';
+
+            const payload = {
+                content: "🔔 **طلب وايت ليست جديد!**",
+                embeds: [{
+                    title: "تفاصيل المتقدم",
+                    color: 3447003,
+                    fields: [
+                        { name: "الديسكورد", value: discord, inline: true },
+                        { name: "العمر", value: age, inline: true },
+                        { name: "الخبرة", value: experience, inline: false }
+                    ],
+                    timestamp: new Date()
+                }]
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
